@@ -1,0 +1,42 @@
+:root {
+  --text: #14213d;
+  --muted: #5f6a84;
+  --bg: #f7fafc;
+  --line: #d4deeb;
+  --card: #fefefe;
+  --surface-2: #edf4fb;
+  --brand: #14746f;
+  --brand-2: #3c91e6;
+  --heading: "Space Grotesk", "Segoe UI", sans-serif;
+  --body: "DM Sans", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--body);
+  background:
+    radial-gradient(circle at 10% 10%, #d6f7ef 0%, transparent 32%),
+    radial-gradient(circle at 90% 5%, #cde6ff 0%, transparent 30%),
+    linear-gradient(180deg, #f8fbff 0%, #eef5fb 100%);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--heading);
+  letter-spacing: 0.01em;
+}
+
+p {
+  margin: 0;
+}
