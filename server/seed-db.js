@@ -12,6 +12,7 @@ const teachers = [
   { name: "Dr. Maria Santos", email: "maria@school.local", password: "teacher1", role: "teacher" },
   { name: "Prof. John Smith", email: "john@school.local", password: "teacher2", role: "teacher" },
   { name: "Engr. Lisa Garcia", email: "lisa@school.local", password: "teacher3", role: "teacher" },
+  { name: "Dr. Carlos Mendoza", email: "carlos@school.local", password: "teacher4", role: "teacher" },
 ];
 
 const students = [
