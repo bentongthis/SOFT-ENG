@@ -198,6 +198,20 @@ function initDatabase() {
 		CREATE INDEX IF NOT EXISTS idx_audit_log_admin_id ON audit_log (admin_id);
 		CREATE INDEX IF NOT EXISTS idx_audit_log_schedule_id ON audit_log (schedule_id);
 	`);
+
+	db.exec(`
+		DELETE FROM schedule
+		WHERE id NOT IN (
+			SELECT MIN(id)
+			FROM schedule
+			GROUP BY subject_id, teacher_id, room_id, section, day, time_start, time_end
+		);
+	`);
+
+	db.exec(`
+		CREATE UNIQUE INDEX IF NOT EXISTS idx_schedule_unique_slot
+			ON schedule (subject_id, teacher_id, room_id, section, day, time_start, time_end);
+	`);
 }
 
 app.get("/api/health", (req, res) => {

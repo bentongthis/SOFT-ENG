@@ -19,6 +19,7 @@ const students = [
   { name: "Juan Dela Cruz", email: "juan@school.local", password: "student1", role: "student" },
   { name: "Maria Santos Jr.", email: "maria.jr@school.local", password: "student2", role: "student" },
   { name: "Pedro Reyes", email: "pedro@school.local", password: "student3", role: "student" },
+  { name: "Ana Lopez", email: "ana@school.local", password: "student4", role: "student" }
 ];
 
 // Create sample subjects
@@ -128,19 +129,44 @@ const scheduleData = [
 
 for (const schedule of scheduleData) {
   try {
-    db.prepare(
-      `INSERT INTO schedule (subject_id, teacher_id, room_id, section, day, time_start, time_end)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(
-      schedule.subject_id,
-      schedule.teacher_id,
-      schedule.room_id,
-      schedule.section,
-      schedule.day,
-      schedule.time_start,
-      schedule.time_end
-    );
-    console.log(`✓ Created schedule: ${schedule.section} - ${schedule.day}`);
+    const existing = db
+      .prepare(
+        `SELECT id FROM schedule
+         WHERE subject_id = ?
+           AND teacher_id = ?
+           AND room_id = ?
+           AND section = ?
+           AND day = ?
+           AND time_start = ?
+           AND time_end = ?`
+      )
+      .get(
+        schedule.subject_id,
+        schedule.teacher_id,
+        schedule.room_id,
+        schedule.section,
+        schedule.day,
+        schedule.time_start,
+        schedule.time_end
+      );
+
+    if (!existing) {
+      db.prepare(
+        `INSERT INTO schedule (subject_id, teacher_id, room_id, section, day, time_start, time_end)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`
+      ).run(
+        schedule.subject_id,
+        schedule.teacher_id,
+        schedule.room_id,
+        schedule.section,
+        schedule.day,
+        schedule.time_start,
+        schedule.time_end
+      );
+      console.log(`✓ Created schedule: ${schedule.section} - ${schedule.day}`);
+    } else {
+      console.log(`✓ Schedule exists: ${schedule.section} - ${schedule.day}`);
+    }
   } catch (err) {
     console.error(`✗ Failed to create schedule:`, err.message);
   }
