@@ -23,6 +23,11 @@ export default function LoginPage() {
 
   const isRegisterMode = mode === "register";
 
+  const modeButtonClass = (active) =>
+    active
+      ? "rounded-xl bg-gradient-to-r from-emerald-700 to-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm"
+      : "rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50";
+
   const switchMode = (nextMode) => {
     setMode(nextMode);
     setError("");
@@ -48,73 +53,82 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="auth-page">
-      <section className="auth-card">
-        <p className="eyebrow">Classroom Scheduling</p>
-        <h1>{isRegisterMode ? "Create your account" : "Welcome back"}</h1>
-        <p className="subtle">
+    <main className="grid min-h-screen place-items-center px-4 py-10">
+      <section className="w-full max-w-xl rounded-3xl border border-slate-200/80 bg-white/85 p-8 shadow-[0_24px_70px_-30px_rgba(2,6,23,0.45)] backdrop-blur-sm sm:p-10">
+        <p className="m-0 text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
+          Classroom Scheduling
+        </p>
+        <h1 className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
+          {isRegisterMode ? "Create your account" : "Welcome back"}
+        </h1>
+        <p className="mt-2 text-sm text-slate-600 sm:text-base">
           {isRegisterMode
             ? "Register, then you will be signed in automatically."
             : "Use your account role to access the right dashboard."}
         </p>
 
-        <div className="auth-actions">
+        <div className="mt-6 grid grid-cols-2 gap-3">
           <button
             type="button"
-            className={isRegisterMode ? "btn-outline" : "btn-primary"}
+            className={modeButtonClass(!isRegisterMode)}
             onClick={() => switchMode("login")}
           >
             Login
           </button>
           <button
             type="button"
-            className={isRegisterMode ? "btn-primary" : "btn-outline"}
+            className={modeButtonClass(isRegisterMode)}
             onClick={() => switchMode("register")}
           >
             Register
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="form-grid">
+        <form onSubmit={handleSubmit} className="mt-6 grid gap-4">
           {isRegisterMode ? (
-            <label>
+            <label className="grid gap-1.5 text-sm font-semibold text-slate-700">
               Full name
               <input
                 type="text"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder="Juan Dela Cruz"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
                 required
               />
             </label>
           ) : null}
 
-          <label>
+          <label className="grid gap-1.5 text-sm font-semibold text-slate-700">
             Email
             <input
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              placeholder="teacher@school.edu"
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
               required
             />
           </label>
 
-          <label>
+          <label className="grid gap-1.5 text-sm font-semibold text-slate-700">
             Password
             <input
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="••••••••"
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
               required
             />
           </label>
 
           {isRegisterMode ? (
-            <label>
+            <label className="grid gap-1.5 text-sm font-semibold text-slate-700">
               Role
-              <select value={role} onChange={(event) => setRole(event.target.value)} required>
+              <select
+                value={role}
+                onChange={(event) => setRole(event.target.value)}
+                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                required
+              >
                 <option value="student">Student</option>
                 <option value="teacher">Teacher</option>
                 <option value="admin">Admin</option>
@@ -122,11 +136,15 @@ export default function LoginPage() {
             </label>
           ) : null}
 
-          {success ? <p className="ok-text">{success}</p> : null}
+          {success ? <p className="m-0 font-semibold text-emerald-700">{success}</p> : null}
 
-          {error ? <p className="error-text">{error}</p> : null}
+          {error ? <p className="m-0 font-semibold text-rose-700">{error}</p> : null}
 
-          <button type="submit" className="btn-primary" disabled={loading}>
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-gradient-to-r from-emerald-700 to-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-65"
+            disabled={loading}
+          >
             {loading
               ? isRegisterMode
                 ? "Creating account..."

@@ -242,23 +242,41 @@ export default function AdminPage() {
     }
   };
 
+  const panelClass =
+    "rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur-sm";
+  const formGridClass =
+    "mt-4 grid gap-3 md:grid-cols-2 [&>button]:md:col-span-2 [&_label]:grid [&_label]:gap-1.5 [&_label]:text-sm [&_label]:font-semibold [&_label]:text-slate-700 [&_input]:w-full [&_input]:rounded-xl [&_input]:border [&_input]:border-slate-300 [&_input]:bg-white [&_input]:px-3 [&_input]:py-2.5 [&_input]:text-slate-900 [&_input]:outline-none [&_input]:transition [&_input:focus]:border-emerald-500 [&_input:focus]:ring-4 [&_input:focus]:ring-emerald-100 [&_select]:w-full [&_select]:rounded-xl [&_select]:border [&_select]:border-slate-300 [&_select]:bg-white [&_select]:px-3 [&_select]:py-2.5 [&_select]:text-slate-900 [&_select]:outline-none [&_select]:transition [&_select:focus]:border-emerald-500 [&_select:focus]:ring-4 [&_select:focus]:ring-emerald-100";
+  const primaryButtonClass =
+    "rounded-xl bg-gradient-to-r from-emerald-700 to-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-65";
+  const dangerButtonClass =
+    "rounded-xl bg-gradient-to-r from-rose-700 to-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105";
+  const tableWrapClass = "mt-3 overflow-auto rounded-xl border border-slate-200";
+  const tableClass =
+    "w-full border-collapse text-sm [&_th]:border-b [&_th]:border-slate-200 [&_th]:bg-slate-50 [&_th]:px-3 [&_th]:py-2.5 [&_th]:text-left [&_th]:font-semibold [&_th]:text-slate-600 [&_td]:border-b [&_td]:border-slate-100 [&_td]:px-3 [&_td]:py-2.5 [&_td]:text-slate-800";
+  const tabClass = (active) =>
+    active
+      ? "rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800"
+      : "rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50";
+
   return (
-    <section className="page-shell">
-      <header className="panel-head">
-        <h2>Admin Dashboard</h2>
-        <p>Manage users, subjects, rooms, schedules, and view audit logs.</p>
+    <section className="grid gap-4">
+      <header className="rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-sm backdrop-blur-sm">
+        <h2 className="m-0 text-2xl font-bold text-slate-900">Admin Dashboard</h2>
+        <p className="mt-1 text-sm text-slate-600">
+          Manage users, subjects, rooms, schedules, and view audit logs.
+        </p>
       </header>
 
-      {message ? <p className="ok-text">{message}</p> : null}
-      {error ? <p className="error-text">{error}</p> : null}
+      {message ? <p className="m-0 font-semibold text-emerald-700">{message}</p> : null}
+      {error ? <p className="m-0 font-semibold text-rose-700">{error}</p> : null}
 
       {/* Tab Navigation */}
-      <div className="admin-tabs">
+      <div className="flex flex-wrap gap-2">
         {["users", "subjects", "rooms", "schedules", "notifications", "audit"].map((t) => (
           <button
             key={t}
             type="button"
-            className={tab === t ? "tab-active" : "tab-inactive"}
+            className={tabClass(tab === t)}
             onClick={() => setTab(t)}
           >
             {t.charAt(0).toUpperCase() + t.slice(1)}
@@ -268,10 +286,10 @@ export default function AdminPage() {
 
       {/* Users Tab */}
       {tab === "users" && (
-        <div>
-          <article className="panel">
-            <h3>Create User</h3>
-            <form className="form-grid two-col" onSubmit={handleUserCreate}>
+        <div className="grid gap-4">
+          <article className={panelClass}>
+            <h3 className="m-0 text-lg font-semibold text-slate-900">Create User</h3>
+            <form className={formGridClass} onSubmit={handleUserCreate}>
               <label>
                 Full Name
                 <input
@@ -319,16 +337,16 @@ export default function AdminPage() {
                 </select>
               </label>
 
-              <button type="submit" className="btn-primary" disabled={loading}>
+              <button type="submit" className={primaryButtonClass} disabled={loading}>
                 {loading ? "Creating..." : "Create User"}
               </button>
             </form>
           </article>
 
-          <article className="panel">
-            <h3>All Users</h3>
-            <div className="table-wrap">
-              <table>
+          <article className={panelClass}>
+            <h3 className="m-0 text-lg font-semibold text-slate-900">All Users</h3>
+            <div className={tableWrapClass}>
+              <table className={tableClass}>
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -355,10 +373,10 @@ export default function AdminPage() {
 
       {/* Subjects Tab */}
       {tab === "subjects" && (
-        <div>
-          <article className="panel">
-            <h3>Create Subject</h3>
-            <form className="form-grid two-col" onSubmit={handleSubjectCreate}>
+        <div className="grid gap-4">
+          <article className={panelClass}>
+            <h3 className="m-0 text-lg font-semibold text-slate-900">Create Subject</h3>
+            <form className={formGridClass} onSubmit={handleSubjectCreate}>
               <label>
                 Subject Code
                 <input
@@ -393,16 +411,16 @@ export default function AdminPage() {
                 />
               </label>
 
-              <button type="submit" className="btn-primary" disabled={loading}>
+              <button type="submit" className={primaryButtonClass} disabled={loading}>
                 {loading ? "Creating..." : "Create Subject"}
               </button>
             </form>
           </article>
 
-          <article className="panel">
-            <h3>All Subjects</h3>
-            <div className="table-wrap">
-              <table>
+          <article className={panelClass}>
+            <h3 className="m-0 text-lg font-semibold text-slate-900">All Subjects</h3>
+            <div className={tableWrapClass}>
+              <table className={tableClass}>
                 <thead>
                   <tr>
                     <th>Code</th>
@@ -427,10 +445,10 @@ export default function AdminPage() {
 
       {/* Rooms Tab */}
       {tab === "rooms" && (
-        <div>
-          <article className="panel">
-            <h3>Create Room</h3>
-            <form className="form-grid two-col" onSubmit={handleRoomCreate}>
+        <div className="grid gap-4">
+          <article className={panelClass}>
+            <h3 className="m-0 text-lg font-semibold text-slate-900">Create Room</h3>
+            <form className={formGridClass} onSubmit={handleRoomCreate}>
               <label>
                 Room Code
                 <input
@@ -465,16 +483,16 @@ export default function AdminPage() {
                 />
               </label>
 
-              <button type="submit" className="btn-primary" disabled={loading}>
+              <button type="submit" className={primaryButtonClass} disabled={loading}>
                 {loading ? "Creating..." : "Create Room"}
               </button>
             </form>
           </article>
 
-          <article className="panel">
-            <h3>All Rooms</h3>
-            <div className="table-wrap">
-              <table>
+          <article className={panelClass}>
+            <h3 className="m-0 text-lg font-semibold text-slate-900">All Rooms</h3>
+            <div className={tableWrapClass}>
+              <table className={tableClass}>
                 <thead>
                   <tr>
                     <th>Code</th>
@@ -499,10 +517,10 @@ export default function AdminPage() {
 
       {/* Schedules Tab */}
       {tab === "schedules" && (
-        <div>
-          <article className="panel">
-            <h3>Create Schedule</h3>
-            <form className="form-grid two-col" onSubmit={handleScheduleCreate}>
+        <div className="grid gap-4">
+          <article className={panelClass}>
+            <h3 className="m-0 text-lg font-semibold text-slate-900">Create Schedule</h3>
+            <form className={formGridClass} onSubmit={handleScheduleCreate}>
               <label>
                 Subject
                 <select
@@ -599,16 +617,16 @@ export default function AdminPage() {
                 />
               </label>
 
-              <button type="submit" className="btn-primary" disabled={loading}>
+              <button type="submit" className={primaryButtonClass} disabled={loading}>
                 {loading ? "Saving..." : "Create Schedule"}
               </button>
             </form>
           </article>
 
-          <article className="panel">
-            <h3>Current Schedules</h3>
-            <div className="table-wrap">
-              <table>
+          <article className={panelClass}>
+            <h3 className="m-0 text-lg font-semibold text-slate-900">Current Schedules</h3>
+            <div className={tableWrapClass}>
+              <table className={tableClass}>
                 <thead>
                   <tr>
                     <th>Subject</th>
@@ -632,7 +650,7 @@ export default function AdminPage() {
                       <td>
                         <button
                           type="button"
-                          className="btn-danger"
+                          className={dangerButtonClass}
                           onClick={() => handleScheduleDelete(row.id)}
                         >
                           Delete
@@ -649,25 +667,27 @@ export default function AdminPage() {
 
       {/* Notifications Tab */}
       {tab === "notifications" && (
-        <article className="panel">
-          <h3>Notifications</h3>
+        <article className={panelClass}>
+          <h3 className="m-0 text-lg font-semibold text-slate-900">Notifications</h3>
           {notifications.length === 0 ? (
-            <p className="empty">No notifications.</p>
+            <p className="mt-3 text-sm text-slate-500">No notifications.</p>
           ) : (
-            <ul className="stack-list">
+            <ul className="mt-3 grid list-none gap-3 p-0">
               {notifications.map((item) => (
-                <li key={item.id} className={item.is_read ? "card note-read" : "card"}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
+                <li
+                  key={item.id}
+                  className={`rounded-xl border border-slate-200 bg-white p-3 ${item.is_read ? "opacity-70" : ""}`}
+                >
+                  <div className="flex items-start justify-between gap-3">
                     <div>
                       <p>{item.message}</p>
-                      <small>{new Date(item.created_at).toLocaleString()}</small>
+                      <small className="text-slate-500">{new Date(item.created_at).toLocaleString()}</small>
                     </div>
                     {!item.is_read && (
                       <button
                         type="button"
-                        className="btn-outline"
+                        className="whitespace-nowrap rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
                         onClick={() => handleNotificationRead(item.id)}
-                        style={{ whiteSpace: "nowrap" }}
                       >
                         Mark read
                       </button>
@@ -682,10 +702,10 @@ export default function AdminPage() {
 
       {/* Audit Logs Tab */}
       {tab === "audit" && (
-        <article className="panel">
-          <h3>Audit Log</h3>
-          <div className="table-wrap">
-            <table>
+        <article className={panelClass}>
+          <h3 className="m-0 text-lg font-semibold text-slate-900">Audit Log</h3>
+          <div className={tableWrapClass}>
+            <table className={tableClass}>
               <thead>
                 <tr>
                   <th>Admin</th>

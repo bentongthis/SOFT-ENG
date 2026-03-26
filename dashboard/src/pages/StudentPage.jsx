@@ -39,24 +39,39 @@ export default function StudentPage() {
     };
   }, [user.id]);
 
+  const panelClass =
+    "rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur-sm";
+  const tableWrapClass = "mt-3 overflow-auto rounded-xl border border-slate-200";
+  const tableClass =
+    "w-full border-collapse text-sm [&_th]:border-b [&_th]:border-slate-200 [&_th]:bg-slate-50 [&_th]:px-3 [&_th]:py-2.5 [&_th]:text-left [&_th]:font-semibold [&_th]:text-slate-600 [&_td]:border-b [&_td]:border-slate-100 [&_td]:px-3 [&_td]:py-2.5 [&_td]:text-slate-800";
+
   return (
-    <section className="page-shell">
-      <header className="panel-head panel-head-inline">
-        <div>
-          <h2>Student View</h2>
-          <p>Browse class offerings and print your page view.</p>
+    <section className="grid gap-4">
+      <header className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-sm backdrop-blur-sm">
+        <div className="pointer-events-none absolute -left-8 -top-10 h-36 w-36 rounded-full bg-sky-200/60 blur-2xl" />
+        <div className="pointer-events-none absolute -right-8 -bottom-14 h-44 w-44 rounded-full bg-emerald-200/55 blur-2xl" />
+        <div className="relative z-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="m-0 text-xs font-bold uppercase tracking-[0.15em] text-sky-700">Student Space</p>
+            <h2 className="mt-1 text-2xl font-bold text-slate-900">Course Explorer</h2>
+            <p className="mt-1 text-sm text-slate-600">Browse class offerings and print your page view.</p>
+          </div>
+          <button
+            type="button"
+            className="rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            onClick={() => window.print()}
+          >
+            Print PDF
+          </button>
         </div>
-        <button type="button" className="btn-outline" onClick={() => window.print()}>
-          Print PDF
-        </button>
       </header>
 
-      {error ? <p className="error-text">{error}</p> : null}
+      {error ? <p className="m-0 font-semibold text-rose-700">{error}</p> : null}
 
-      <article className="panel">
-        <h3>Published Schedules</h3>
-        <div className="table-wrap">
-          <table>
+      <article className={panelClass}>
+        <h3 className="m-0 text-lg font-semibold text-slate-900">Published Schedules</h3>
+        <div className={tableWrapClass}>
+          <table className={tableClass}>
             <thead>
               <tr>
                 <th>Subject</th>
@@ -83,16 +98,19 @@ export default function StudentPage() {
         </div>
       </article>
 
-      <article className="panel">
-        <h3>Notifications</h3>
+      <article className={panelClass}>
+        <h3 className="m-0 text-lg font-semibold text-slate-900">Notifications</h3>
         {notifications.length === 0 ? (
-          <p className="empty">No updates for your account.</p>
+          <p className="mt-3 text-sm text-slate-500">No updates for your account.</p>
         ) : (
-          <ul className="stack-list">
+          <ul className="mt-3 grid list-none gap-3 p-0">
             {notifications.map((item) => (
-              <li key={item.id} className={item.is_read ? "card note-read" : "card"}>
-                <p>{item.message}</p>
-                <small>{item.created_at}</small>
+              <li
+                key={item.id}
+                className={`rounded-xl border border-slate-200 bg-white p-3 ${item.is_read ? "opacity-70" : ""}`}
+              >
+                <p className="m-0 text-sm text-slate-800">{item.message}</p>
+                <small className="mt-1 block text-xs text-slate-500">{item.created_at}</small>
               </li>
             ))}
           </ul>
