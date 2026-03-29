@@ -243,24 +243,24 @@ export default function AdminPage() {
   };
 
   const panelClass =
-    "rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur-sm";
+    "glass-panel rounded-2xl p-5";
   const formGridClass =
-    "mt-4 grid gap-3 md:grid-cols-2 [&>button]:md:col-span-2 [&_label]:grid [&_label]:gap-1.5 [&_label]:text-sm [&_label]:font-semibold [&_label]:text-slate-700 [&_input]:w-full [&_input]:rounded-xl [&_input]:border [&_input]:border-slate-300 [&_input]:bg-white [&_input]:px-3 [&_input]:py-2.5 [&_input]:text-slate-900 [&_input]:outline-none [&_input]:transition [&_input:focus]:border-emerald-500 [&_input:focus]:ring-4 [&_input:focus]:ring-emerald-100 [&_select]:w-full [&_select]:rounded-xl [&_select]:border [&_select]:border-slate-300 [&_select]:bg-white [&_select]:px-3 [&_select]:py-2.5 [&_select]:text-slate-900 [&_select]:outline-none [&_select]:transition [&_select:focus]:border-emerald-500 [&_select:focus]:ring-4 [&_select:focus]:ring-emerald-100";
+    "mt-4 grid gap-3 md:grid-cols-2 [&>button]:md:col-span-2 [&_label]:grid [&_label]:gap-1.5 [&_label]:text-sm [&_label]:font-semibold [&_label]:text-slate-700 [&_input]:w-full [&_input]:rounded-xl [&_input]:border [&_input]:border-slate-300 [&_input]:bg-white/95 [&_input]:px-3 [&_input]:py-2.5 [&_input]:text-slate-900 [&_input]:outline-none [&_input]:transition [&_input:focus]:border-teal-500 [&_input:focus]:ring-4 [&_input:focus]:ring-teal-100 [&_select]:w-full [&_select]:rounded-xl [&_select]:border [&_select]:border-slate-300 [&_select]:bg-white/95 [&_select]:px-3 [&_select]:py-2.5 [&_select]:text-slate-900 [&_select]:outline-none [&_select]:transition [&_select:focus]:border-teal-500 [&_select:focus]:ring-4 [&_select:focus]:ring-teal-100";
   const primaryButtonClass =
-    "rounded-xl bg-gradient-to-r from-emerald-700 to-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-65";
+    "rounded-xl bg-gradient-to-r from-teal-600 via-cyan-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-65";
   const dangerButtonClass =
-    "rounded-xl bg-gradient-to-r from-rose-700 to-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105";
+    "rounded-xl bg-gradient-to-r from-rose-600 to-orange-500 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105";
   const tableWrapClass = "mt-3 overflow-auto rounded-xl border border-slate-200";
   const tableClass =
     "w-full border-collapse text-sm [&_th]:border-b [&_th]:border-slate-200 [&_th]:bg-slate-50 [&_th]:px-3 [&_th]:py-2.5 [&_th]:text-left [&_th]:font-semibold [&_th]:text-slate-600 [&_td]:border-b [&_td]:border-slate-100 [&_td]:px-3 [&_td]:py-2.5 [&_td]:text-slate-800";
   const tabClass = (active) =>
     active
-      ? "rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800"
-      : "rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50";
+      ? "rounded-xl border border-teal-200 bg-gradient-to-r from-teal-50 to-cyan-50 px-4 py-2 text-sm font-semibold text-teal-800"
+      : "rounded-xl border border-slate-200 bg-white/95 px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50";
 
   return (
     <section className="grid gap-4">
-      <header className="rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-sm backdrop-blur-sm">
+      <header className="glass-panel aurora-header rounded-2xl p-5">
         <h2 className="m-0 text-2xl font-bold text-slate-900">Admin Dashboard</h2>
         <p className="mt-1 text-sm text-slate-600">
           Manage users, subjects, rooms, schedules, and view audit logs.

@@ -40,14 +40,14 @@ export default function TeacherPage() {
   }, [user.id]);
 
   const panelClass =
-    "rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur-sm";
+    "glass-panel rounded-2xl p-5";
   const tableWrapClass = "mt-3 overflow-auto rounded-xl border border-slate-200";
   const tableClass =
-    "w-full border-collapse text-sm [&_th]:border-b [&_th]:border-slate-200 [&_th]:bg-slate-50 [&_th]:px-3 [&_th]:py-2.5 [&_th]:text-left [&_th]:font-semibold [&_th]:text-slate-600 [&_td]:border-b [&_td]:border-slate-100 [&_td]:px-3 [&_td]:py-2.5 [&_td]:text-slate-800";
+    "w-full border-collapse text-sm [&_th]:border-b [&_th]:border-slate-200 [&_th]:bg-gradient-to-r [&_th]:from-slate-50 [&_th]:to-cyan-50/70 [&_th]:px-3 [&_th]:py-2.5 [&_th]:text-left [&_th]:font-semibold [&_th]:text-slate-600 [&_td]:border-b [&_td]:border-slate-100 [&_td]:px-3 [&_td]:py-2.5 [&_td]:text-slate-800";
 
   return (
     <section className="grid gap-4">
-      <header className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-sm backdrop-blur-sm">
+      <header className="glass-panel aurora-header rounded-2xl p-5">
         <div className="pointer-events-none absolute -right-10 -top-16 h-40 w-40 rounded-full bg-emerald-200/55 blur-2xl" />
         <div className="pointer-events-none absolute -left-12 -bottom-20 h-44 w-44 rounded-full bg-sky-200/55 blur-2xl" />
         <div className="relative z-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
