@@ -25,8 +25,8 @@ export default function LoginPage() {
 
   const modeButtonClass = (active) =>
     active
-      ? "rounded-xl bg-gradient-to-r from-emerald-700 to-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm"
-      : "rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50";
+      ? "rounded-xl bg-gradient-to-r from-teal-600 via-cyan-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm"
+      : "rounded-xl border border-slate-300 bg-white/90 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50";
 
   const switchMode = (nextMode) => {
     setMode(nextMode);
@@ -48,26 +48,29 @@ export default function LoginPage() {
       const user = await login(email, password);
       navigate(roleHome(user.role), { replace: true });
     } catch (requestError) {
-      setError(requestError?.response?.data?.error || "Unable to continue");
+      setError(
+        requestError?.response?.data?.error ||
+          "Unable to continue. Please make sure the API server is running."
+      );
     }
   };
 
   return (
     <main className="grid min-h-screen place-items-center px-4 py-10">
-      <section className="w-full max-w-xl rounded-3xl border border-slate-200/80 bg-white/85 p-8 shadow-[0_24px_70px_-30px_rgba(2,6,23,0.45)] backdrop-blur-sm sm:p-10">
-        <p className="m-0 text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
+      <section className="glass-panel aurora-header w-full max-w-xl rounded-3xl p-8 sm:p-10">
+        <p className="relative z-10 m-0 text-xs font-bold uppercase tracking-[0.16em] text-teal-700">
           Classroom Scheduling
         </p>
-        <h1 className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
+        <h1 className="relative z-10 mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
           {isRegisterMode ? "Create your account" : "Welcome back"}
         </h1>
-        <p className="mt-2 text-sm text-slate-600 sm:text-base">
+        <p className="relative z-10 mt-2 text-sm text-slate-600 sm:text-base">
           {isRegisterMode
             ? "Register, then you will be signed in automatically."
             : "Use your account role to access the right dashboard."}
         </p>
 
-        <div className="mt-6 grid grid-cols-2 gap-3">
+        <div className="relative z-10 mt-6 grid grid-cols-2 gap-3">
           <button
             type="button"
             className={modeButtonClass(!isRegisterMode)}
@@ -84,7 +87,7 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-6 grid gap-4">
+        <form onSubmit={handleSubmit} className="relative z-10 mt-6 grid gap-4">
           {isRegisterMode ? (
             <label className="grid gap-1.5 text-sm font-semibold text-slate-700">
               Full name
@@ -92,7 +95,7 @@ export default function LoginPage() {
                 type="text"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                className="w-full rounded-xl border border-slate-300 bg-white/95 px-3 py-2.5 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-100"
                 required
               />
             </label>
@@ -104,7 +107,7 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="w-full rounded-xl border border-slate-300 bg-white/95 px-3 py-2.5 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-100"
               required
             />
           </label>
@@ -115,7 +118,7 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="w-full rounded-xl border border-slate-300 bg-white/95 px-3 py-2.5 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-100"
               required
             />
           </label>
@@ -126,7 +129,7 @@ export default function LoginPage() {
               <select
                 value={role}
                 onChange={(event) => setRole(event.target.value)}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                className="w-full rounded-xl border border-slate-300 bg-white/95 px-3 py-2.5 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-100"
                 required
               >
                 <option value="student">Student</option>
@@ -142,7 +145,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-emerald-700 to-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-65"
+            className="w-full rounded-xl bg-gradient-to-r from-teal-600 via-cyan-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-65"
             disabled={loading}
           >
             {loading

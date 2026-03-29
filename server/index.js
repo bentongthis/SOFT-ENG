@@ -9,15 +9,21 @@ const PORT = process.env.PORT || 5000;
 const dbPath = path.join(__dirname, "school.db");
 const db = new Database(dbPath);
 
+const hasExplicitCorsOrigins = Boolean(process.env.CORS_ORIGINS);
 const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:5173,http://127.0.0.1:5173")
 	.split(",")
 	.map((origin) => origin.trim())
 	.filter(Boolean);
 
+const localDevOriginPattern = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i;
+
 app.use(
 	cors({
 		origin(origin, callback) {
-			if (!origin || allowedOrigins.includes(origin)) {
+			const isAllowedLocalDevOrigin =
+				!hasExplicitCorsOrigins && localDevOriginPattern.test(origin || "");
+
+			if (!origin || allowedOrigins.includes(origin) || isAllowedLocalDevOrigin) {
 				return callback(null, true);
 			}
 
